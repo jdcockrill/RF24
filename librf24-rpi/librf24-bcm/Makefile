@@ -26,8 +26,8 @@ LIBNAME=$(LIB).so.1.0
 CCFLAGS=-Ofast -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s
 
 # make all
-# reinstall the library after each recompilation
-all: librf24-bcm install
+# don't reinstall the library after each recompilation
+all: librf24-bcm
 
 # Make the library
 librf24-bcm: RF24.o bcm2835.o 
