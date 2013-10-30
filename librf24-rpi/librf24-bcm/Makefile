@@ -16,11 +16,14 @@ PREFIX=/usr/local
 # Library parameters
 # where to put the lib
 LIBDIR=$(PREFIX)/lib
+# where to put the header files
+INCDIR=${PREFIX}/include
 # lib name 
 LIB=librf24-bcm
 # shared library name
 LIBNAME=$(LIB).so.1.0
 
+HEADERS=bcm2835.h nRF24L01.h RF24_config.h RF24.h
 
 # The recommended compiler flags for the Raspberry Pi
 CCFLAGS=-Ofast -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s
@@ -48,8 +51,8 @@ clean:
 install: 
 	@echo "[Install]"
 	@if ( test ! -d $(PREFIX)/lib ) ; then mkdir -p $(PREFIX)/lib ; fi
-	#@install -m 0755 ${LIB}.a ${LIBDIR}
 	@install -m 0755 ${LIBNAME} ${LIBDIR}
+	@install ${HEADERS} ${INCDIR}
 	@ln -sf ${LIBDIR}/${LIBNAME} ${LIBDIR}/${LIB}.so.1
 	@ln -sf ${LIBDIR}/${LIBNAME} ${LIBDIR}/${LIB}.so
 	@ldconfig
