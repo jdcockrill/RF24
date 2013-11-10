@@ -36,8 +36,8 @@
 //RF24 radio(RPI_V2_GPIO_P1_15, BCM2835_SPI_CS0, BCM2835_SPI_SPEED_4MHZ); 
 
 // Setup for GPIO 22 CE and CE1 CSN with SPI Speed @ 8Mhz
-RF24 radio(RPI_V2_GPIO_P1_15, RPI_V2_GPIO_P1_26, BCM2835_SPI_SPEED_8MHZ);  
-
+//RF24 radio(RPI_V2_GPIO_P1_15, RPI_V2_GPIO_P1_26, BCM2835_SPI_SPEED_8MHZ);  
+RF24 radio(RPI_V2_GPIO_P1_15, BCM2835_SPI_CS0, BCM2835_SPI_SPEED_8MHZ);
 
 // sets the role of this unit in hardware.  Connect to GND to be the 'pong' receiver
 // Leave open to be the 'ping' transmitter
@@ -96,9 +96,9 @@ int main(int argc, char** argv)
 
   // optionally, reduce the payload size.  seems to
   // improve reliability
-	//  radio.setPayloadSize(8);
-	radio.setChannel(0x4c);
-  radio.setPALevel(RF24_PA_LOW);
+  radio.setPayloadSize(8);
+  //radio.setChannel(0x4c);
+  radio.setPALevel(RF24_PA_HIGH);
 
   //
   // Open pipes to other nodes for communication
@@ -159,7 +159,7 @@ int main(int argc, char** argv)
 			while ( ! radio.available() && ! timeout ) {
 					// by bcatalin » Thu Feb 14, 2013 11:26 am
 					delay(5); //add a small delay to let radio.available to check payload
-				if (millis() - started_waiting_at > 200 )
+				if (millis() - started_waiting_at > 250 )
 					timeout = true;
 			}
 
